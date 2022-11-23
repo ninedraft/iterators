@@ -1,5 +1,11 @@
 package iterators
 
+// Pair describes a sequence of pairs.
+type Pairs[A, B any] Iterator[Pair[A, B]]
+
+// Pair describes a sequence of pairs with known size.
+type PairsSized[A, B any] Sized[Pair[A, B]]
+
 // Pair describes two connected values.
 type Pair[A, B any] struct {
 	A A
