@@ -45,7 +45,7 @@ func Filter[E any](iter Iterator[E], fn func(E) bool) Iterator[E] {
 			if !fn(value) {
 				continue
 			}
-			return value
+			return value, true
 		}
 	})
 }
