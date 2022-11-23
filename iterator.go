@@ -26,3 +26,11 @@ type IteratorCloser[E any] interface {
 	Iterator[E]
 	io.Closer
 }
+
+// Sized describe an iterator with known size.
+// If Len()==0, then Next() must return false.
+// If Next() returns false, then Len() must be 0.
+type Sized[E any] interface {
+	Iterator[E]
+	Len() int
+}
