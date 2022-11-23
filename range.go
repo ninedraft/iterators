@@ -27,6 +27,8 @@ func Range[N Number](from, to N) Iterator[N] {
 // Returns an empty iterator otherwise.
 // Returns an empty iterator if any of arguments is NaN.
 func RangeStep[N Number](from, to, step N) Iterator[N] {
+	var i = from
+	var stop = func() bool { return i >= to }
 	switch {
 	case isNaN(from), isNaN(to), isNaN(step):
 		return Empty[N]()
@@ -34,13 +36,14 @@ func RangeStep[N Number](from, to, step N) Iterator[N] {
 		return Empty[N]()
 	case from > to && step > 0:
 		return Empty[N]()
+	case from > to:
+		stop = func() bool { return i <= to }
 	case from < to && step < 0:
 		return Empty[N]()
 	}
 
-	var i = from
 	return Fn[N](func(context.Context) (N, bool) {
-		if i > to {
+		if stop() {
 			return 0, false
 		}
 		var x = i
