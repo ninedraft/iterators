@@ -22,6 +22,10 @@ func Range[N Number](from, to N) Iterator[N] {
 	return RangeStep(from, to, 1)
 }
 
+// RangeStep emits a bounded sequence of numbers [from, to).
+// Returns non-empty iterator if from<to && step>0 or from>to && step<0.
+// Returns an empty iterator otherwise.
+// Returns an empty iterator if any of arguments is NaN.
 func RangeStep[N Number](from, to, step N) Iterator[N] {
 	switch {
 	case isNaN(from), isNaN(to), isNaN(step):
